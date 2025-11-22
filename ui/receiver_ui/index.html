@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CryptoVault — Receiver (Secure)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    /* -------------------------
+       Secure / tactical theme
+       ------------------------- */
+    :root{
+      --bg-1:#0b0f14;
+      --bg-2:#071018;
+      --panel:#0f1720;
+      --muted:#9aa6b2;
+      --accent:#00d1ff;      /* cyan glow */
+      --accent-2:#6cf07a;    /* success green */
+      --danger:#ff6b6b;
+      --glass: rgba(255,255,255,0.02);
+      --glass-2: rgba(255,255,255,0.03);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      --sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      --radius: 12px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(0,209,255,0.04), transparent 6%),
+                  radial-gradient(900px 500px at 90% 90%, rgba(108,240,122,0.02), transparent 6%),
+                  linear-gradient(180deg,var(--bg-1),var(--bg-2));
+      color:#e6eef3;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:36px;
+      display:flex;
+      align-items:start;
+      justify-content:center;
+    }
+
+    /* container */
+    .shell {
+      width:100%;
+      max-width:1080px;
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:28px;
+      align-items:start;
+    }
+
+    /* Main panel */
+    .panel {
+      background: linear-gradient(180deg,var(--panel), rgba(255,255,255,0.01));
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow: 0 8px 40px rgba(2,6,23,0.7), inset 0 1px 0 rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.03);
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* Header */
+    .hdr {
+      display:flex;
+      gap:14px;
+      align-items:center;
+      margin-bottom:8px;
+    }
+    .logo {
+      width:56px;height:56px;border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg, rgba(0,209,255,0.08), rgba(108,240,122,0.03));
+      border:1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 6px 20px rgba(0,209,255,0.03);
+      position:relative;
+    }
+    .logo .lock {
+      width:26px;height:26px; fill: none; stroke: var(--accent); stroke-width:2.2;
+    }
+    .title {
+      font-size:1.125rem;font-weight:700; letter-spacing:0.2px;
+    }
+    .subtitle { font-size:0.82rem; color:var(--muted); margin-top:2px }
+
+    /* file area */
+    .file-card {
+      margin-top:14px;
+      border-radius:10px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      padding:14px;
+      display:flex;
+      gap:14px;
+      align-items:center;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    .file-drop {
+      flex:1;
+      padding:16px;
+      border-radius:8px;
+      background:var(--glass);
+      border:1px dashed rgba(255,255,255,0.04);
+      color:var(--muted);
+      font-size:0.95rem;
+      cursor:pointer;
+      transition:transform .12s, box-shadow .12s, border-color .12s;
+    }
+    .file-drop:hover{ transform:translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.5)}
+    .file-meta {
+      width:180px;
+      text-align:right;
+      font-family:var(--mono);
+      font-size:0.85rem;
+      color:var(--muted);
+    }
+    .badge {
+      display:inline-block;
+      padding:6px 8px;
+      border-radius:8px;
+      background:rgba(0,0,0,0.25);
+      border:1px solid rgba(255,255,255,0.03);
+      color:var(--accent);
+      font-weight:600;
+      font-size:0.78rem;
+    }
+
+    /* key input */
+    .key-row { margin-top:18px; display:flex; gap:12px; align-items:center }
+    .key-input {
+      flex:1;
+      position:relative;
+    }
+    .key-input input[type="text"]{
+      width:100%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,0.04);
+      padding:12px 44px 12px 12px;
+      color:#dff7ff;
+      font-family:var(--mono);
+      letter-spacing:0.8px;
+      font-size:0.95rem;
+      outline:none;
+      transition: box-shadow .14s, border-color .14s;
+    }
+    .key-input input::placeholder{ color: rgba(255,255,255,0.25); font-family:var(--mono)}
+    .key-input input:focus{ box-shadow: 0 6px 20px rgba(0,209,255,0.06); border-color: rgba(0,209,255,0.28) }
+
+    .key-actions {
+      position:absolute; right:8px; top:50%; transform:translateY(-50%);
+      display:flex; gap:6px;
+    }
+    .icon-btn {
+      background:transparent; border:0; color:var(--muted); padding:6px; cursor:pointer;
+      border-radius:6px; transition:background .12s;
+    }
+    .icon-btn:hover{ background:rgba(255,255,255,0.02); color:var(--accent) }
+
+    /* primary action */
+    .actions { margin-top:18px; display:flex; gap:12px; align-items:center }
+    .btn-primary {
+      background: linear-gradient(90deg, rgba(0,209,255,0.12), rgba(108,240,122,0.06));
+      color: #051217;
+      border:none;
+      font-weight:800;
+      padding:12px 16px;
+      border-radius:10px;
+      cursor:pointer;
+      box-shadow: 0 6px 18px rgba(0,209,255,0.06);
+      transition: transform .12s, filter .12s;
+    }
+    .btn-primary:hover{ transform:translateY(-2px); filter:brightness(1.06) }
+    .btn-ghost {
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.03);
+      padding:10px 12px;
+      border-radius:8px;
+      cursor:pointer;
+    }
+
+    /* right column */
+    .side {
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+    .terminal {
+      background:#05060a;
+      border-radius:10px;
+      padding:14px;
+      border:1px solid rgba(255,255,255,0.03);
+      font-family:var(--mono);
+      font-size:0.9rem;
+      color:#9feeff;
+      min-height:240px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.7);
+      overflow:auto;
+      position:relative;
+    }
+    .terminal .status {
+      display:flex; gap:8px; align-items:center; margin-bottom:8px; font-size:0.85rem;
+    }
+    .dot { width:10px;height:10px;border-radius:50% }
+    .dot.ok{ background:var(--accent-2); box-shadow:0 0 8px rgba(108,240,122,0.18)}
+    .dot.busy{ background:var(--accent); box-shadow:0 0 8px rgba(0,209,255,0.16)}
+    .dot.err{ background:var(--danger); box-shadow:0 0 8px rgba(255,107,107,0.14)}
+
+    /* fingerprint / metadata */
+    .meta {
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      border-radius:10px; padding:12px; border:1px solid rgba(255,255,255,0.03);
+      font-family:var(--mono); font-size:0.9rem; color:var(--muted);
+    }
+    .meta-row { display:flex; justify-content:space-between; gap:8px; margin-bottom:8px }
+
+    /* subtle animated scan */
+    .scan {
+      height:2px; margin-top:10px; background:linear-gradient(90deg, transparent, rgba(0,209,255,0.12), transparent);
+      animation: scan 3s linear infinite;
+      opacity:0.6; border-radius:2px;
+    }
+    @keyframes scan { 0%{transform:translateX(-110%)} 100%{transform:translateX(110%)} }
+
+    /* small helpers */
+    .muted { color:var(--muted); font-size:0.86rem }
+    code { font-family:var(--mono); color:#bffcff }
+
+    /* responsive */
+    @media (max-width:980px){
+      .shell{ grid-template-columns: 1fr; padding-bottom:40px }
+      .side{ order: 2 }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <!-- Left / main panel -->
+    <div class="panel" role="main" aria-labelledby="title">
+      <div class="hdr">
+        <div class="logo" aria-hidden="true">
+          <!-- lock svg -->
+          <svg class="lock" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="10" width="16" height="10" rx="2"></rect>
+            <path d="M7 10V7a5 5 0 0110 0v3" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <div>
+          <div id="title" class="title">CRYPTOVAULT — RECEIVER</div>
+          <div class="subtitle">Secure decrypt station · authenticated environment</div>
+        </div>
+      </div>
+
+      <div class="file-card" id="fileCard">
+        <label class="file-drop" id="fileDrop">
+          <input id="fileInput" type="file" accept=".enc" style="display:none" />
+          <div id="fileDropText">Click or drop encrypted file here (.enc)</div>
+        </label>
+
+        <div class="file-meta" aria-live="polite">
+          <div>File: <div id="fName" style="font-family:var(--mono); color:#dff7ff; margin-top:6px">—</div></div>
+          <div style="margin-top:10px">
+            <span class="badge" id="statusBadge">AWAIT</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="key-row">
+        <div class="key-input">
+          <input id="keyField" type="text" placeholder="Paste AES key hex (mask for security)" autocomplete="off" inputmode="latin" />
+          <div class="key-actions">
+            <button class="icon-btn" id="toggleMask" title="Toggle key mask">👁️</button>
+            <button class="icon-btn" id="pasteBtn" title="Paste from clipboard">📋</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="decryptBtn" class="btn-primary" title="Request server to decrypt">DECRYPT & VERIFY</button>
+        <button id="clearBtn" class="btn-ghost" title="Clear form">CLEAR</button>
+      </div>
+
+      <div class="scan" aria-hidden="true"></div>
+
+      <div style="margin-top:18px" class="muted">
+        <div>Protocol: AES-256-CBC (server-side). Transfer uses HTTPS in production. Always verify SHA-256 fingerprint after decrypt.</div>
+      </div>
+    </div>
+
+    <!-- Right / side panel -->
+    <aside class="side" aria-label="status and output">
+      <div class="meta" role="region" aria-label="file metadata">
+        <div style="font-weight:700; color:var(--accent)">FILE FINGERPRINT</div>
+        <div class="meta-row"><div class="muted">Name</div><div id="metaName">—</div></div>
+        <div class="meta-row"><div class="muted">Size</div><div id="metaSize">—</div></div>
+        <div class="meta-row"><div class="muted">Type</div><div id="metaType">—</div></div>
+        <div class="meta-row"><div class="muted">Uploaded</div><div id="metaTime">—</div></div>
+        <div style="font-size:0.78rem; margin-top:8px; color:var(--muted)">Keep encryption keys secure. This tool only decrypts with provided AES key.</div>
+      </div>
+
+      <div class="terminal" id="terminal" role="log" aria-live="polite">
+        <div class="status">
+          <div class="dot busy" id="dot"></div>
+          <div id="state">Idle</div>
+        </div>
+
+        <div id="out">
+          <div style="opacity:0.7">Ready. Select encrypted file and provide AES key.</div>
+        </div>
+
+      </div>
+    </aside>
+  </div>
+
+  <script>
+const fileDrop = document.getElementById('fileDrop');
+const fileInput = document.getElementById('fileInput');
+const fName = document.getElementById('fName');
+const metaName = document.getElementById('metaName');
+const metaSize = document.getElementById('metaSize');
+const metaType = document.getElementById('metaType');
+const metaTime = document.getElementById('metaTime');
+const statusBadge = document.getElementById('statusBadge');
+const dot = document.getElementById('dot');
+const state = document.getElementById('state');
+const out = document.getElementById('out');
+const keyField = document.getElementById('keyField');
+const toggleMask = document.getElementById('toggleMask');
+const decryptBtn = document.getElementById('decryptBtn');
+const clearBtn = document.getElementById('clearBtn');
+const pasteBtn = document.getElementById('pasteBtn');
+
+// ✅ Use same base URL as backend
+const API_URL = "http://127.0.0.1:8000/decrypt/";
+
+// Toggle key masking
+let masked = true;
+keyField.type = 'password';
+toggleMask.addEventListener('click', (e) => {
+  e.preventDefault();
+  masked = !masked;
+  keyField.type = masked ? 'password' : 'text';
+  toggleMask.textContent = masked ? '👁️' : '🙈';
+  keyField.focus();
+});
+
+// Paste from clipboard
+pasteBtn.addEventListener('click', async (e) => {
+  e.preventDefault();
+  try {
+    const text = await navigator.clipboard.readText();
+    if (text) keyField.value = text.trim();
+  } catch (err) {
+    appendLine('[WARN] Clipboard not available or permission denied.');
+  }
+});
+
+// ✅ Drag and Drop (Fixed border reset)
+fileDrop.addEventListener('dragover', (e) => { 
+  e.preventDefault(); 
+  fileDrop.style.borderColor = 'rgba(0,209,255,0.16)'; 
+});
+fileDrop.addEventListener('dragleave', () => { fileDrop.style.borderColor = ''; });
+fileDrop.addEventListener('drop', (e) => {
+  e.preventDefault();
+  fileDrop.style.borderColor = '';
+  const files = e.dataTransfer.files;
+  if (files.length) setFile(files[0]);
+});
+
+// Handle file input
+fileInput.addEventListener('change', (e) => {
+  if (fileInput.files.length) setFile(fileInput.files[0]);
+});
+
+function setFile(file) {
+  fName.textContent = file.name;
+  metaName.textContent = file.name;
+  metaSize.textContent = humanSize(file.size);
+  metaType.textContent = file.type || '.enc';
+  metaTime.textContent = new Date().toLocaleString();
+  statusBadge.textContent = 'READY';
+  appendLine(`[OK] File selected: ${file.name}`);
+  scrollTerminal();
+}
+
+function humanSize(bytes){
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB';
+  return (bytes/(1024*1024)).toFixed(2) + ' MB';
+}
+
+function appendLine(txt, cls='') {
+  const d = document.createElement('div');
+  d.textContent = txt;
+  if (cls) d.className = cls;
+  out.appendChild(d);
+  scrollTerminal();
+}
+
+function setBusy() { dot.className = 'dot busy'; state.textContent = 'Processing'; statusBadge.textContent = 'BUSY'; }
+function setIdle() { dot.className = 'dot ok'; state.textContent = 'Idle'; if (statusBadge.textContent === 'BUSY') statusBadge.textContent = 'AWAIT'; }
+
+clearBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  fileInput.value = '';
+  fName.textContent = '—';
+  metaName.textContent = '—';
+  metaSize.textContent = '—';
+  metaType.textContent = '—';
+  metaTime.textContent = '—';
+  keyField.value = '';
+  statusBadge.textContent = 'AWAIT';
+  out.innerHTML = '<div style="opacity:0.7">Ready. Select encrypted file and provide AES key.</div>';
+  setIdle();
+});
+
+// ✅ FIXED: Clean response handling
+decryptBtn.addEventListener('click', async (e) => {
+  e.preventDefault();
+  if (!fileInput.files.length) { appendLine('[ERROR] No file selected.'); return; }
+  const key = keyField.value.trim();
+  if (!key) { appendLine('[ERROR] AES key missing.'); return; }
+
+  setBusy();
+  appendLine('[INFO] Uploading encrypted file to server...');
+
+  try {
+    const fd = new FormData();
+    fd.append('file', fileInput.files[0]);
+    fd.append('key', key);
+
+    const res = await fetch(API_URL, { 
+      method:'POST', 
+      body: fd 
+    });
+
+    let json;
+    try {
+      json = await res.json();
+    } catch {
+      const text = await res.text();
+      appendLine(`[ERROR] Server returned invalid JSON: ${text}`);
+      throw new Error(text);
+    }
+
+    if (!res.ok) {
+      appendLine(`[ERROR ${res.status}] ${json.detail || 'Unknown error'}`);
+      dot.className = 'dot err';
+      state.textContent = 'Error';
+      statusBadge.textContent = 'FAIL';
+      return;
+    }
+
+    appendLine('[OK] Decryption completed successfully.');
+    appendLine(`[HASH] ${json.hash}`);
+    appendLine(`[OUTPUT] Saved as ${json.output_filename}`);
+    appendLine('[SECURE] Verify SHA-256 fingerprint matches sender.');
+    dot.className = 'dot ok';
+    state.textContent = 'Completed';
+    statusBadge.textContent = 'OK';
+  } catch (err) {
+    appendLine('[ERROR] Network/CORS or server unreachable: ' + err);
+    dot.className = 'dot err'; 
+    state.textContent = 'Error';
+    statusBadge.textContent = 'FAIL';
+  } finally {
+    scrollTerminal();
+    setTimeout(() => setIdle(), 1200);
+  }
+});
+
+function scrollTerminal(){ 
+  const t = document.getElementById('terminal'); 
+  t.scrollTop = t.scrollHeight; 
+}
+
+keyField.addEventListener('keydown', (e) => { 
+  if (e.key === 'Enter') decryptBtn.click(); 
+});
+</script>
+
+
+</body>
+</html>
+
+

@@ -1,0 +1,138 @@
+{
+    "drip_layout_ncpahtest.jpg.enc": {
+        "path": "data/encrypted\\drip_layout_ncpahtest.jpg.enc",
+        "key": "35d22d4448a7a81ac2378e283426055f5bfdb6f48754cd618b347e3fd15c3c85",
+        "iv": "c70315c1780623c292ffc371",
+        "hash": "57859a30b1487c4e5bf90a5a697bf97273ed01dc5b01382d723429dbff154536",
+        "enc_hash": "0292d8f4dac4664fb2ae3ad7edfadc00101b1b5a5a9951b4c8b74b87e02dba27",
+        "wrong_attempts": 3,
+        "destroyed": true,
+        "original_name": "drip_layout_ncpahtest.jpg"
+    },
+    "Le_Chef_Receipt____20180521103247___.jpeg.enc": {
+        "path": "data/encrypted\\Le_Chef_Receipt____20180521103247___.jpeg.enc",
+        "hash": "c03ec4b899a35b4d642e69eb6fd46372f235ce1e37bfaca28b3b106bcaf1c9a8",
+        "key": "6befff48f8eac7d35bef79c4ca1eb2c8a06288b87baa9f6ac32433aae69f2aa4",
+        "wrong_attempts": 3,
+        "destroyed": true,
+        "original_name": "Le_Chef_Receipt____20180521103247___.jpeg"
+    },
+    "desktop-wallpaper-full-lord-shiva-black-background-dark-shiva.jpg.enc": {
+        "path": "data/encrypted\\desktop-wallpaper-full-lord-shiva-black-background-dark-shiva.jpg.enc",
+        "hash": "3414c5ef8f6c0e9f4e6a041f84fc4c45dfc033b84d3bdf75a8208b988cfdc1e2",
+        "key": "2dc453a2856492a37bf12eace77d7e1deaf33dcbc9a817a38f69ad9cea563172",
+        "wrong_attempts": 0,
+        "destroyed": false,
+        "original_name": "desktop-wallpaper-full-lord-shiva-black-background-dark-shiva.jpg"
+    },
+    "A_satellite_image_taken_during_daytime_depicts_a_f (2).png.enc": {
+        "path": "data/encrypted\\A_satellite_image_taken_during_daytime_depicts_a_f (2).png.enc",
+        "sha256": "34e06ad7e990ee804a52283dd813a7149f46cc408c495a5016c8cff8c18be49e",
+        "key": "f71348b3e948b8780d6dfd8b4a0114ed967da82275105613fc23552406d54315",
+        "iv": "7fd5564597f941cac3018efa",
+        "wrong_attempts": 0,
+        "destroyed": false,
+        "original_name": "A_satellite_image_taken_during_daytime_depicts_a_f (2).png"
+    },
+    "WhatsApp Image 2025-09-12 at 11.21.59_bc92160e.jpg.enc": {
+        "path": "data/encrypted\\WhatsApp Image 2025-09-12 at 11.21.59_bc92160e.jpg.enc",
+        "hash": "99d31abbf38a942e70b09de8fa9a688ee0bc8d4933262768ba1a03e0b88856e8",
+        "key": "f670a4c82cc16a2ef895685486d675dfc4bf85210da2d55f039ed55c39ecf51c",
+        "wrong_attempts": 0,
+        "destroyed": false,
+        "original_name": "WhatsApp Image 2025-09-12 at 11.21.59_bc92160e.jpg"
+    },
+    "pexels-mateusz-dach-450035.jpg.enc": {
+        "path": "data/encrypted\\pexels-mateusz-dach-450035.jpg.enc",
+        "hash": "f464dfefc05abc8abda2ade3283bdc1ddca7487ce935843fcfb5cd95da484c36",
+        "key": "cb8299847069dd0bafe51d2118b9dc3ad5df02048719c28e980e7b002609fa70",
+        "wrong_attempts": 0,
+        "destroyed": false,
+        "original_name": "pexels-mateusz-dach-450035.jpg"
+    },
+    "WhatsApp Image 2025-09-11 at 12.07.28_6a5282b4.jpg.enc": {
+        "path": "data/encrypted\\WhatsApp Image 2025-09-11 at 12.07.28_6a5282b4.jpg.enc",
+        "sha256": "71b39f8c8eeb7ac121cf2bf59819e90d52ca51a2d2bb99689e5961049ed618d7",
+        "key": "c811f5d6e22d4f2775ebd748d6d3fe05e39051b95431c8e79771853125e98c97",
+        "iv": "29408c23d22f2695e9109ab5",
+        "wrong_attempts": 0,
+        "destroyed": false,
+        "original_name": "WhatsApp Image 2025-09-11 at 12.07.28_6a5282b4.jpg"
+    },
+    "sample_bill_expense_tracker.png.enc": {
+        "path": "data/encrypted\\sample_bill_expense_tracker.png.enc",
+        "sha256": "06b7ec4eb886cb7a8db4a27088d3a9d304d9a2a5db219c505ec0348e02d8edd4",
+        "key": "a08d7448c424ab3d71182de73bb1d7b95b0225d6054ff4b7a9f8cc8160faf22a",
+        "iv": "61477d43e1399d5ff7ffe57e",
+        "wrong_attempts": 0,
+        "destroyed": false,
+        "original_name": "sample_bill_expense_tracker.png"
+    },
+    "invoice-template-us-mono-black-750px.png.enc": {
+        "path": "data/encrypted\\invoice-template-us-mono-black-750px.png.enc",
+        "sha256": "7d671f250abb03821fa4b5e623a3ac122a2182d8153183d7d5fb3e4a39a3529c",
+        "key": "fdeb97b3d549e8b9bc903028ae7980e07a23096556cd90b08be19e507c6ff16a",
+        "iv": "e3f490f12e062322e39c2ea5",
+        "wrong_attempts": 0,
+        "destroyed": false,
+        "original_name": "invoice-template-us-mono-black-750px.png"
+    },
+    "trenton_oli_2017195_lrg.jpg.enc": {
+        "path": "data/encrypted\\trenton_oli_2017195_lrg.jpg.enc",
+        "sha256": "921e002acd6521d4f9a2ef3e9f3ad750e6f96c9f42cdc25704d8b5fd1bd592c8",
+        "key": "b981f6b4408a9054fa78a0958b642c64f74854c158c832621b75f61057d9554c",
+        "iv": "845f6abc508a297f06c40216",
+        "wrong_attempts": 0,
+        "destroyed": false,
+        "original_name": "trenton_oli_2017195_lrg.jpg"
+    },
+    "062f56392314fdcfd0f3ecd91db0a0b3.jpg.enc": {
+        "path": "data/encrypted\\062f56392314fdcfd0f3ecd91db0a0b3.jpg.enc",
+        "sha256": "a83f676ad8ac7265e97e70ad0be4b4cb26ce127d5d7f9958d4829fffc8785d1e",
+        "key": "53aa48003552220022926a398285bc294fe01ec85ec3549048189d6382faace8",
+        "iv": "63176f77c96403b1f7e37636",
+        "wrong_attempts": 0,
+        "destroyed": false,
+        "original_name": "062f56392314fdcfd0f3ecd91db0a0b3.jpg"
+    },
+    "pexels-fabiano-rodrigues-794857-1662298.jpg.enc": {
+        "path": "data/encrypted\\pexels-fabiano-rodrigues-794857-1662298.jpg.enc",
+        "key": "38a5a0f6f11ed1d202c1cdfb4499e3d94551dabeec84780461a843c0cb2c1d1b",
+        "iv": "b7213443f65e8288d60eaf2e",
+        "hash": "5fe3959bac6f8553a638e10053c9512b407f27f061946443839d7dafe6de23c0",
+        "enc_hash": "05c9c1cda4a19d2a805c193a611f6b53725adbbc7f2ef0e15fe6d7b2c615a8c8",
+        "wrong_attempts": 0,
+        "destroyed": false,
+        "original_name": "pexels-fabiano-rodrigues-794857-1662298.jpg"
+    },
+    "200980.jpg.enc": {
+        "path": "data/encrypted\\200980.jpg.enc",
+        "key": "87dbcc4bf70c16ea0c1403c91262338e24ef9a231f018976551ce8ca88cbf707",
+        "iv": "4d0c822291af3bc6c8be228d",
+        "hash": "e9ac3c12f117a5b4c778dbfdba17b368586db6538da000d488ec87dc61abe87b",
+        "enc_hash": "9688d6d09941128b318912ea5baaa6c0cd1cafe872e658cd80aec9f15304005e",
+        "wrong_attempts": 1,
+        "destroyed": false,
+        "original_name": "200980.jpg"
+    },
+    "WhatsApp Image 2025-11-22 at 8.10.25 PM (1).jpeg.enc": {
+        "path": "data/encrypted\\WhatsApp Image 2025-11-22 at 8.10.25 PM (1).jpeg.enc",
+        "key": "fb5fb4e9e5aceadcbe351b29a5ff92ded9b93a9cb4cf5892bb4abee6f15d387b",
+        "iv": "d675c8ba4fe7c85b0caf47f9",
+        "hash": "a90278e052f2a3e2d5fb501e3be21a998334784e17a8aec7e9feef5b2c6f87db",
+        "enc_hash": "ee961fdc6db92166b0abf2ac277e0a058e24376d580ec61f4437705eb232dd4d",
+        "wrong_attempts": 0,
+        "destroyed": false,
+        "original_name": "WhatsApp Image 2025-11-22 at 8.10.25 PM (1).jpeg"
+    },
+    "A1.jpeg.enc": {
+        "path": "data/encrypted\\A1.jpeg.enc",
+        "key": "2b84051a221ee69acd4d3662e4323471ab8a15cc90eca99ea855998ccf4249ba",
+        "iv": "414b53608b6bdf17dc7fb6b2",
+        "hash": "57859a30b1487c4e5bf90a5a697bf97273ed01dc5b01382d723429dbff154536",
+        "enc_hash": "3212994831d048f03067219fe00dc199fe0c34e4b43d14bde26ae6f7a11e52cc",
+        "wrong_attempts": 0,
+        "destroyed": false,
+        "original_name": "A1.jpeg"
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "200980.jpg.enc": {
+        "path": "data/encrypted\\200980.jpg.enc",
+        "hash": "e9ac3c12f117a5b4c778dbfdba17b368586db6538da000d488ec87dc61abe87b",
+        "key": "1113c58ea105c66161861a7107fdf5cff9a343a7c0ba276bd9ca7d43bfc0d989",
+        "wrong_attempts": 2,
+        "destroyed": false
+    },
+    "pexels-ameruverse-digital-marketing-media-1643409.jpg.enc": {
+        "path": "data/encrypted\\pexels-ameruverse-digital-marketing-media-1643409.jpg.enc",
+        "hash": "03dfd9b6e8d25765d6388ba29d9bf4faf3e04bce425491f60613dcc8a6c73ccf",
+        "key": "c619b9d1bd00ed88fd45028b851be7b316fe83fa49887f009a5f41c1395da1d5",
+        "wrong_attempts": 0,
+        "destroyed": false,
+        "original_name": "pexels-ameruverse-digital-marketing-media-1643409.jpg"
+    }
+}

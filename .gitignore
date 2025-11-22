@@ -1,0 +1,62 @@
+# --------------------------------------
+# Python Cache & Bytecode
+# --------------------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# --------------------------------------
+# Virtual Environments
+# --------------------------------------
+.venv/
+venv/
+env/
+
+# --------------------------------------
+# VSCode / IDE configs
+# --------------------------------------
+.vscode/
+.idea/
+*.iml
+
+# --------------------------------------
+# OS Generated Files
+# --------------------------------------
+.DS_Store
+Thumbs.db
+
+# --------------------------------------
+# CryptoVault Project Folders
+# DO NOT UPLOAD ENCRYPTED DATA OR LOG FILES
+# --------------------------------------
+
+# Encrypted files + keys
+*.enc
+*.key
+
+# Runtime generated directories
+uploads/
+data/
+logs/
+test/
+temp/
+cache/
+
+# Server side decrypted outputs
+decrypted/
+*/decrypted/
+
+# --------------------------------------
+# FastAPI / Uvicorn / Runtime
+# --------------------------------------
+*.log
+*.db
+*.sqlite3
+
+# --------------------------------------
+# Build / Distribution
+# --------------------------------------
+build/
+dist/
+*.egg-info/

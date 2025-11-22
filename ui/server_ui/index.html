@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CryptoVault — Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top, #0d1117, #050709);
+      color: #e6edf3;
+      min-height: 100vh;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      color: #00ff88;
+      margin-bottom: 10px;
+      text-shadow: 0 0 12px rgba(0,255,136,0.4);
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    p {
+      color: #a5b3c2;
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+      font-style: italic;
+    }
+
+    .container {
+      max-width: 950px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 35px;
+    }
+
+    .card {
+      background: linear-gradient(145deg,#0d1117,#161b22);
+      padding: 40px;
+      border-radius: 18px;
+      border: 1px solid #2d333b;
+      box-shadow: 0 0 25px rgba(0,255,136,0.07), inset 0 0 20px rgba(0,255,136,0.03);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #00ff88;
+      box-shadow: 0 0 25px rgba(0,255,136,0.25);
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    button {
+      padding: 16px;
+      width: 100%;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg,#00ff88,#00b3ff);
+      color: #0d1117;
+      cursor: pointer;
+      letter-spacing: 1px;
+      transition: 0.25s ease;
+      text-transform: uppercase;
+    }
+
+    button:hover {
+      box-shadow: 0 0 25px rgba(0,255,136,0.4);
+      transform: translateY(-3px) scale(1.02);
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>CryptoVault — Admin Dashboard</h1>
+  <p>⚔ Secure administrative access for encryption & decryption of classified files.</p>
+
+  <div class="container">
+
+    <!-- ENCRYPT PAGE -->
+    <div class="card">
+      <h2 style="color:#00b3ff;">Encryption Panel</h2>
+      <p style="margin-bottom:25px;">Upload a file to encrypt it securely using AES-256.</p>
+
+      <button onclick="window.location.href='/send/index.html'">
+        Go to Encrypt Page
+      </button>
+    </div>
+
+    <!-- DECRYPT PAGE -->
+    <div class="card">
+      <h2 style="color:#00ff88;">Decryption Panel</h2>
+      <p style="margin-bottom:25px;">Decrypt files safely using the correct AES key.</p>
+
+      <button onclick="window.location.href='/receive/index.html'">
+        Go to Decrypt Page
+      </button>
+    </div>
+
+  </div>
+
+</body>
+</html>

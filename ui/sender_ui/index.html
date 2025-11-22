@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CryptoVault — Sender</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    /* ====== YOUR ORIGINAL CSS ====== */
+    :root {
+      --bg-1:#0b0f14;
+      --bg-2:#071018;
+      --panel:#0f1720;
+      --muted:#9aa6b2;
+      --accent:#00d1ff;
+      --accent-2:#6cf07a;
+      --danger:#ff6b6b;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      --sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      --radius: 12px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:var(--sans);background:linear-gradient(180deg,var(--bg-1),var(--bg-2));color:#e6eef3}
+    body{display:flex;justify-content:center;align-items:start;padding:36px}
+    .shell{width:100%;max-width:1000px;display:grid;grid-template-columns:1fr 400px;gap:28px}
+    .panel{background:linear-gradient(180deg,var(--panel),rgba(255,255,255,0.01));border-radius:var(--radius);padding:22px;box-shadow:0 8px 40px rgba(2,6,23,0.7), inset 0 1px 0 rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03)}
+    .hdr{display:flex;gap:14px;align-items:center;margin-bottom:14px}
+    .logo{width:56px;height:56px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(0,209,255,0.08),rgba(108,240,122,0.03));border:1px solid rgba(255,255,255,0.04);box-shadow:0 6px 20px rgba(0,209,255,0.03)}
+    .logo svg{width:28px;height:28px;stroke:var(--accent);stroke-width:2.2;fill:none}
+    .title{font-size:1.2rem;font-weight:700}
+    .subtitle{font-size:0.85rem;color:var(--muted)}
+    .file-card{margin-top:14px;border-radius:10px;background:rgba(255,255,255,0.01);padding:14px;display:flex;align-items:center;gap:14px;border:1px solid rgba(255,255,255,0.03)}
+    .file-drop{flex:1;padding:16px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px dashed rgba(255,255,255,0.06);cursor:pointer;text-align:center;color:var(--muted)}
+    .file-drop:hover{box-shadow:0 6px 18px rgba(0,0,0,0.5)}
+    .file-meta{width:180px;text-align:right;font-family:var(--mono);font-size:0.85rem;color:var(--muted)}
+    .badge{padding:6px 8px;border-radius:8px;background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.03);color:var(--accent);font-weight:600;font-size:0.78rem}
+    .actions{margin-top:18px;display:flex;gap:12px}
+    .btn-primary{background:linear-gradient(90deg,rgba(0,209,255,0.12),rgba(108,240,122,0.06));color:#051217;border:none;font-weight:800;padding:12px 16px;border-radius:10px;cursor:pointer}
+    .btn-primary:hover{transform:translateY(-2px)}
+    .side{display:flex;flex-direction:column;gap:18px}
+    .terminal{background:#05060a;border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.03);font-family:var(--mono);font-size:0.9rem;color:#9feeff;min-height:240px;overflow:auto;box-shadow:0 6px 24px rgba(0,0,0,0.7)}
+    .meta{background:rgba(255,255,255,0.01);border-radius:10px;padding:12px;border:1px solid rgba(255,255,255,0.03);font-family:var(--mono);font-size:0.9rem;color:var(--muted)}
+    .meta-row{display:flex;justify-content:space-between;gap:8px;margin-bottom:6px}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <!-- Sender Main Panel -->
+    <div class="panel">
+      <div class="hdr">
+        <div class="logo">
+          <svg viewBox="0 0 24 24"><path d="M4 12l8-8 8 8M12 4v16"/></svg>
+        </div>
+        <div>
+          <div class="title">CRYPTOVAULT — SENDER</div>
+          <div class="subtitle">Encrypt & transmit file securely</div>
+        </div>
+      </div>
+
+      <div class="file-card">
+        <div class="file-drop" id="fileDrop">
+          <input id="fileInput" type="file" style="display:none"/>
+          <div id="fileDropText">Click or drop file to encrypt</div>
+        </div>
+        <div class="file-meta">
+          <div>File:<div id="fName" style="color:#dff7ff;margin-top:6px">—</div></div>
+          <div style="margin-top:10px"><span class="badge" id="statusBadge">AWAIT</span></div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="encryptBtn" type="button" class="btn-primary">ENCRYPT & UPLOAD</button>
+      </div>
+    </div>
+
+    <!-- Side Info -->
+    <aside class="side">
+      <div class="meta">
+        <div style="font-weight:700;color:var(--accent)">ENCRYPTION DATA</div>
+        <div class="meta-row"><div>AES Key</div><div id="metaKey">—</div></div>
+        <div class="meta-row"><div>IV</div><div id="metaIV">—</div></div>
+        <div class="meta-row"><div>SHA-256</div><div id="metaSHA">—</div></div>
+      </div>
+      <div class="terminal" id="terminal">
+        <div>[READY] Waiting for file input...</div>
+      </div>
+    </aside>
+  </div>
+
+<script>
+const fileDrop = document.getElementById('fileDrop');
+const fileInput = document.getElementById('fileInput');
+const fName = document.getElementById('fName');
+const statusBadge = document.getElementById('statusBadge');
+const encryptBtn = document.getElementById('encryptBtn');
+const out = document.getElementById('terminal');
+const metaKey = document.getElementById('metaKey');
+const metaIV = document.getElementById('metaIV');
+const metaSHA = document.getElementById('metaSHA');
+
+let selectedFile = null;
+
+// ---------------------------
+// File selection
+// ---------------------------
+fileDrop.addEventListener('click', () => { 
+    fileInput.value = ''; 
+    fileInput.click(); 
+});
+
+fileInput.addEventListener('change', () => { 
+    if(fileInput.files.length) setFile(fileInput.files[0]); 
+});
+
+fileDrop.addEventListener('dragover', (e) => {
+    e.preventDefault(); 
+    fileDrop.style.borderColor = '#00d1ff'; 
+});
+
+fileDrop.addEventListener('dragleave', (e) => {
+    e.preventDefault(); 
+    fileDrop.style.borderColor = 'rgba(255,255,255,0.06)'; 
+});
+
+fileDrop.addEventListener('drop', (e) => { 
+    e.preventDefault(); 
+    fileDrop.style.borderColor = 'rgba(255,255,255,0.06)'; 
+    if(e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]); 
+});
+
+function setFile(file){
+    selectedFile = file;
+    fName.textContent = file.name;
+    statusBadge.textContent = "READY";
+    appendLine(`[OK] File selected: ${file.name}`);
+}
+
+// ---------------------------
+// Terminal log helper
+// ---------------------------
+function appendLine(txt){
+    const d = document.createElement('div');
+    d.textContent = txt;
+    out.appendChild(d);
+    out.scrollTop = out.scrollHeight;
+}
+
+// ---------------------------
+// Encrypt & Upload
+// ---------------------------
+encryptBtn.addEventListener('click', async (e) => {
+    e.preventDefault(); // prevent any accidental form submission
+    if(!selectedFile){ 
+        appendLine("[ERROR] No file selected."); 
+        statusBadge.textContent = "FAIL"; 
+        return; 
+    }
+
+    statusBadge.textContent = "BUSY";
+    appendLine("[INFO] Uploading file...");
+
+    const fd = new FormData();
+    fd.append("file", selectedFile);
+
+    try{
+        const res = await fetch("http://127.0.0.1:8000/encrypt/", {
+            method: "POST",
+            body: fd
+        });
+
+        if(!res.ok){
+            appendLine(`[ERROR] Server responded: ${res.status}`);
+            statusBadge.textContent = "FAIL";
+            return;
+        }
+
+        const json = await res.json();
+
+        // ✅ Display encryption metadata
+        metaKey.textContent = json.key ?? "—";
+        metaIV.textContent = json.iv ?? "—";
+        metaSHA.textContent = json.sha256 ?? "—";
+
+        appendLine("[OK] Encryption successful. Share key securely.");
+        statusBadge.textContent = "OK";
+
+        // ✅ Lock encryption data until page reload
+        encryptBtn.disabled = true;
+        appendLine("[INFO] Encryption data locked. Reload page for new file.");
+
+    }catch(err){
+        appendLine(`[ERROR] ${err}`);
+        statusBadge.textContent = "FAIL";
+    }
+});
+
+</script>
+</body>
+</html>
